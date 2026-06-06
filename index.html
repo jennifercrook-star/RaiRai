@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity Research — Raihana</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFEF9;
+    --ink: #1C1917;
+    --ink-light: #57534E;
+    --ink-faint: #A8A29E;
+    --border: #E7E2DA;
+    --accent: #C2884F;
+    --accent-light: #F5EDE0;
+    --accent-dark: #9A6535;
+    --success: #3B6E52;
+    --success-light: #EAF3EE;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .page {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .header-note {
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .activity-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .activity-card:focus-within {
+    border-color: var(--accent);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 17px;
+  }
+
+  .card-title {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .card-note {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .mom-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    background: #FEF3C7;
+    color: #92400E;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 4px;
+  }
+
+  .links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .link-pill {
+    font-size: 12px;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    border: 1px solid #E5C9A0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+
+  .link-pill:hover { background: #EDD9B8; }
+
+  .questions { display: flex; flex-direction: column; gap: 10px; }
+
+  .q-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-light);
+    margin-bottom: 5px;
+    letter-spacing: 0.01em;
+  }
+
+  .q-group input,
+  .q-group textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    resize: vertical;
+  }
+
+  .q-group input:focus,
+  .q-group textarea:focus {
+    border-color: var(--accent);
+    background: var(--warm-white);
+  }
+
+  .q-group input::placeholder,
+  .q-group textarea::placeholder { color: var(--ink-faint); }
+
+  .q-group textarea { min-height: 60px; }
+
+  .submit-area {
+    margin-top: 1.75rem;
+    text-align: center;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    width: 100%;
+    justify-content: center;
+    max-width: 360px;
+  }
+
+  .submit-btn:hover { background: var(--accent-dark); }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { background: var(--ink-faint); cursor: not-allowed; transform: none; }
+
+  .submit-note {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .success-banner {
+    display: none;
+    background: var(--success-light);
+    border: 1px solid #B2D9C2;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+
+  .success-banner .success-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .success-banner p {
+    font-size: 14px;
+    color: var(--success);
+    line-height: 1.6;
+  }
+
+  .success-banner strong {
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="header-note">Hey beanie — I created this app to help us with your activities research. At the top of each section is the type of activity with websites to visit. Visit each website and pick one, then answer all the questions about it to make sure it's a good fit for you. At the bottom you can send me the results of your research and I can book it for you.</p>
+  </header>
+
+  <!-- ITALIAN -->
+  <div class="activity-card">
+    <div class="card-header">
+      <div class="card-icon">🇮🇹</div>
+      <div>
+        <p class="card-title">Italian</p>
+        <p class="card-note">Highly recommended by a Sicilian friend who speaks fluent Italian ❤️</p>
+      </div>
+    </div>
+    <div class="links-row">
+      <a class="link-pill" href="https://www.iacelanguage.org/registration-page/" target="_blank">IACE Language ↗</a>
+      <a class="link-pill" href="https://abclang.com/italian-workshops/" target="_blank">ABC Lang ↗</a>
+      <a class="link-pill" href="https://collinaitaliana.com/cart/" target="_blank">Collina Italiana ↗</a>
+    </div>
+    <div class="questions">
+      <div class="q-group"><label>Which option looks most interesting?</label><input type="text" id="it-pick" placeholder="e.g. IACE Language"></div>
+      <div class="q-group"><label>Cost — membership or class package?</label><input type="text" id="it-cost" placeholder="e.g. $150/month"></div>
+      <div class="q-group"><label>Location & how you'd get there</label><input type="text" id="it-location" placeholder="e.g. Midtown, subway from home"></div>
+      <div class="q-group"><label>Instructor / group vibe</label><input type="text" id="it-instructor" placeholder="e.g. small group, mostly young adults"></div>
+      <div class="q-group"><label>Class times — do they work for you?</label><input type="text" id="it-times" placeholder="e.g. Tues & Thurs 6pm, works!"></div>
+      <div class="q-group"><label>Any other notes or questions</label><textarea id="it-notes" placeholder="Anything on your mind..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- SWIM -->
+  <div class="activity-card">
+    <div class="card-header">
+      <div class="card-icon">🏊</div>
+      <div>
+        <p class="card-title">Swim lessons</p>
+        <p class="card-note">Start with YMCA — MPHC is a great backup if it doesn't work out</p>
+      </div>
+    </div>
+    <div class="links-row">
+      <a class="link-pill" href="https://ymcanyc.org/locations?map_location=10023&type&amenities&programs" target="_blank">YMCA NYC ↗</a>
+      <a class="link-pill" href="https://mphc.com/pool-classes/" target="_blank">MPHC Pool ↗</a>
+    </div>
+    <div class="questions">
+      <div class="q-group"><label>Which option looks most interesting?</label><input type="text" id="sw-pick" placeholder="e.g. YMCA"></div>
+      <div class="q-group"><label>Cost — membership or class package?</label><input type="text" id="sw-cost" placeholder="e.g. $80/month"></div>
+      <div class="q-group"><label>Location & how you'd get there</label><input type="text" id="sw-location" placeholder="e.g. 63rd St, 10 min walk"></div>
+      <div class="q-group"><label>Instructor / group vibe</label><input type="text" id="sw-instructor" placeholder="e.g. adult beginner class, mixed ages"></div>
+      <div class="q-group"><label>Class times — do they work for you?</label><input type="text" id="sw-times" placeholder="e.g. Saturday mornings"></div>
+      <div class="q-group"><label>Any other notes or questions</label><textarea id="sw-notes" placeholder="Anything on your mind..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- DANCE -->
+  <div class="activity-card">
+    <div class="card-header">
+      <div class="card-icon">💃</div>
+      <div>
+        <p class="card-title">Dance</p>
+        <p class="card-note">Sheba is the top pick. Also check Steps on Broadway — Khris may teach there!</p>
+      </div>
+    </div>
+    <div class="links-row">
+      <a class="link-pill" href="https://www.shebadance.com/schedule" target="_blank">Sheba Dance ↗</a>
+      <a class="link-pill" href="https://www.stepsnyc.com/classes/workshops/ultimate-introductory-adult-dance-workshops/" target="_blank">Steps Adult Intro ↗</a>
+      <a class="link-pill" href="https://www.stepsnyc.com/" target="_blank">Steps NYC ↗</a>
+    </div>
+    <div class="questions">
+      <div class="q-group"><label>Which option looks most interesting?</label><input type="text" id="da-pick" placeholder="e.g. Sheba Dance"></div>
+      <div class="q-group"><label>Cost — membership or drop-in?</label><input type="text" id="da-cost" placeholder="e.g. drop-in $25"></div>
+      <div class="q-group"><label>Location & how you'd get there</label><input type="text" id="da-location" placeholder="e.g. Broadway & 74th, subway"></div>
+      <div class="q-group"><label>Instructor / group vibe</label><input type="text" id="da-instructor" placeholder="e.g. beginner-friendly, young adults"></div>
+      <div class="q-group"><label>Class times — do they work for you?</label><input type="text" id="da-times" placeholder="e.g. Monday evenings"></div>
+      <div class="q-group"><label>Any other notes or questions</label><textarea id="da-notes" placeholder="Anything on your mind..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- HINDI -->
+  <div class="activity-card">
+    <div class="card-header">
+      <div class="card-icon">📖</div>
+      <div>
+        <p class="card-title">Hindi</p>
+        <p class="card-note">Browse tutors on Preply</p>
+      </div>
+    </div>
+    <div class="links-row">
+      <a class="link-pill" href="https://preply.com/" target="_blank">Preply ↗</a>
+    </div>
+    <div class="questions">
+      <div class="q-group"><label>Any tutors catch your eye?</label><input type="text" id="hi-pick" placeholder="e.g. tutor name or profile link"></div>
+      <div class="q-group"><label>Cost — hourly rate?</label><input type="text" id="hi-cost" placeholder="e.g. $20/hr"></div>
+      <div class="q-group"><label>Format — online or in-person?</label><input type="text" id="hi-location" placeholder="e.g. online via Zoom"></div>
+      <div class="q-group"><label>Tutor vibe — good fit?</label><input type="text" id="hi-instructor" placeholder="e.g. native speaker, patient with beginners"></div>
+      <div class="q-group"><label>Availability — when could you meet?</label><input type="text" id="hi-times" placeholder="e.g. weekend mornings"></div>
+      <div class="q-group"><label>Any other notes or questions</label><textarea id="hi-notes" placeholder="Anything on your mind..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" onclick="handleSubmit()" id="submit-btn">
+      ✉️ &nbsp;Send my research
+    </button>
+    <p class="submit-note">This will open your email app with everything already filled in.<br>Just hit send — no account needed.</p>
+
+    <div class="success-banner" id="success-banner">
+      <div class="success-icon">🎉</div>
+      <p><strong>Email is ready to send!</strong><br>Your mail app should have opened with everything filled in.<br>Just hit send!</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function get(id) {
+    return (document.getElementById(id)?.value?.trim() || '—');
+  }
+
+  function handleSubmit() {
+    const to = 'jennifer.crook@gmail.com,raihananoori1234@gmail.com';
+    const subject = encodeURIComponent("Raihana's activity research 🎯");
+
+    const sections = [
+      {
+        name: 'ITALIAN',
+        fields: [
+          ['Preferred option', get('it-pick')],
+          ['Cost', get('it-cost')],
+          ['Location & transport', get('it-location')],
+          ['Instructor / group vibe', get('it-instructor')],
+          ['Class times', get('it-times')],
+          ['Notes for Mom', get('it-notes')],
+        ]
+      },
+      {
+        name: 'SWIM LESSONS',
+        fields: [
+          ['Preferred option', get('sw-pick')],
+          ['Cost', get('sw-cost')],
+          ['Location & transport', get('sw-location')],
+          ['Instructor / group vibe', get('sw-instructor')],
+          ['Class times', get('sw-times')],
+          ['Notes for Mom', get('sw-notes')],
+        ]
+      },
+      {
+        name: 'DANCE',
+        fields: [
+          ['Preferred option', get('da-pick')],
+          ['Cost', get('da-cost')],
+          ['Location & transport', get('da-location')],
+          ['Instructor / group vibe', get('da-instructor')],
+          ['Class times', get('da-times')],
+          ['Notes for Mom', get('da-notes')],
+        ]
+      },
+      {
+        name: 'HINDI',
+        fields: [
+          ['Preferred option', get('hi-pick')],
+          ['Cost', get('hi-cost')],
+          ['Format', get('hi-location')],
+          ['Tutor vibe', get('hi-instructor')],
+          ['Availability', get('hi-times')],
+          ['Notes for Mom', get('hi-notes')],
+        ]
+      }
+    ];
+
+    let body = "Hi!\n\nHere's my activity research. Let's go through it together!\n\n";
+    body += "─────────────────────────────\n\n";
+
+    sections.forEach(s => {
+      body += s.name + '\n';
+      body += '─────────────────────────────\n';
+      s.fields.forEach(([label, val]) => {
+        body += label + ': ' + val + '\n';
+      });
+      body += '\n';
+    });
+
+    body += "Love you! ❤️";
+
+    const mailtoLink = 'mailto:' + to + '?subject=' + subject + '&body=' + encodeURIComponent(body);
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = '✓ Opening your email app...';
+
+    window.location.href = mailtoLink;
+
+    setTimeout(() => {
+      document.getElementById('success-banner').style.display = 'block';
+    }, 800);
+  }
+</script>
+</body>
+</html>
